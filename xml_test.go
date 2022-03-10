@@ -13,7 +13,7 @@ import (
 const testFilePath = "test.L5X"
 
 var exampleDataTypes = []DataType{
-	DataType{
+	{
 		Name: "dow",
 		Members: []Member{
 			Member{
@@ -36,7 +36,7 @@ var exampleDataTypes = []DataType{
 			},
 		},
 	},
-	DataType{
+	{
 		Name: "datas_for_eating",
 		Members: []Member{
 			Member{
