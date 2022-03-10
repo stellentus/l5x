@@ -11,7 +11,7 @@ import (
 
 var (
 	in  = flag.String("in", "test.L5X", "Path to L5X file to parse")
-	out = flag.String("out", "", "Path to file to write generated tag/comment CSV, or \"\" for stdout")
+	out = flag.String("out", "", "Path to file to write generated tag/description CSV, or \"\" for stdout")
 )
 
 func main() {
