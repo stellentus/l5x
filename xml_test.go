@@ -13,7 +13,7 @@ import (
 const testFilePath = "test.L5X"
 
 var exampleDataTypes = []DataType{
-	DataType{
+	{
 		Name: "dow",
 		Members: []Member{
 			Member{
@@ -36,7 +36,7 @@ var exampleDataTypes = []DataType{
 			},
 		},
 	},
-	DataType{
+	{
 		Name: "datas_for_eating",
 		Members: []Member{
 			Member{
@@ -1058,4 +1058,15 @@ func ExampleController_WriteTagsStruct() {
 	// 	BIGGD Big_data_type `plctag:"bIGGD"`
 	// 	Dancer `plctag:"Program:dancer"`
 	// }
+}
+
+func ExampleController_WriteTagDescriptions() {
+	tl, _ := exampleController.TypeList()
+	exampleController.WriteTagDescriptions(tl, os.Stdout)
+	// Output:
+	// INFO_ABOUT,Info data
+	// bIGGD,Big Data Lots
+	// DOW,Day of the Week
+	// EX_AOI,Add-on instruction
+	// multiArray,Demo of multi-dimensional array
 }
