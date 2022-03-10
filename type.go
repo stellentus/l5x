@@ -114,13 +114,13 @@ func (tl TypeList) WriteDefinitions(wr io.Writer) error {
 // AddControlLogixTypes adds a couple of types that are (I think) built into ControlLogix
 func (tl *TypeList) AddControlLogixTypes() error {
 	timer, err := DataType{
-		Name: "TIMER",
+		Name: "TIMER", // Reference: https://twcontrols.com/lessons/rslogix-500-training-timers-ton-tof-and-rto?rq=RsLogix%20500%20Training%20-%20timers
 		Members: []Member{
-			{Name: "PRE", DataType: "DINT"},
-			{Name: "ACC", DataType: "DINT"},
-			{Name: "EN", DataType: "BOOL"},
-			{Name: "TT", DataType: "BOOL"},
-			{Name: "DN", DataType: "BOOL"},
+			{Name: "PRE", DataType: "DINT"}, // "Preset": the target value.
+			{Name: "ACC", DataType: "DINT"}, // "Accumulated": the current value.
+			{Name: "EN", DataType: "BOOL"},  // "Enable Bit": true if the timer is running.
+			{Name: "TT", DataType: "BOOL"},  // "Timer Timing Bit": true if (EN && ACC < PRE).
+			{Name: "DN", DataType: "BOOL"},  // "Done Bit": true if (EN && ACC > PRE).
 		},
 	}.AsType(*tl)
 	if err != nil {
@@ -129,15 +129,15 @@ func (tl *TypeList) AddControlLogixTypes() error {
 	*tl = append(*tl, timer)
 
 	counter, err := DataType{
-		Name: "COUNTER",
+		Name: "COUNTER", // Reference: https://twcontrols.com/lessons/rslogix-500-training-counters-ctu-and-ctd
 		Members: []Member{
-			{Name: "PRE", DataType: "DINT"},
-			{Name: "ACC", DataType: "DINT"},
-			{Name: "CU", DataType: "BOOL"},
-			{Name: "CD", DataType: "BOOL"},
-			{Name: "DN", DataType: "BOOL"},
-			{Name: "OV", DataType: "BOOL"},
-			{Name: "UN", DataType: "BOOL"},
+			{Name: "PRE", DataType: "DINT"}, // "Preset": the target value.
+			{Name: "ACC", DataType: "DINT"}, // "Accumulated": the current value.
+			{Name: "CU", DataType: "BOOL"},  // "Count Up Enable Bit": true if the counter is counting up.
+			{Name: "CD", DataType: "BOOL"},  // "Count Down Enable Bit": true if the timer is counting down.
+			{Name: "DN", DataType: "BOOL"},  // "Done": true if ACC >= PRE (regardless of Count Up or Count Down).
+			{Name: "OV", DataType: "BOOL"},  // "Cout Up Overflow Bit": the timer rolled over from +32767 to -32768.
+			{Name: "UN", DataType: "BOOL"},  // "Dount Down Underflow Bit": the timer rolled over from -32768 to +32767.
 		},
 	}.AsType(*tl)
 	if err != nil {
