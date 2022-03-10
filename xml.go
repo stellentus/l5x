@@ -1,6 +1,7 @@
 package l5x
 
 import (
+	"encoding/csv"
 	"encoding/xml"
 	"errors"
 	"fmt"
@@ -213,6 +214,24 @@ func (ctrl Controller) WriteTagsStruct(tl TypeList, wr io.Writer) error {
 	}
 	_, err = wr.Write([]byte(TypeDefinition(strct) + "\n"))
 	return err
+}
+
+// WriteTagComments writes each tag with its description.
+// It is formatted as valid CSV.
+func (ctrl Controller) WriteTagDescriptions(tl TypeList, wr io.Writer) error {
+	out := csv.NewWriter(wr)
+	record := make([]string, 2)
+	for _, tag := range ctrl.Tags {
+		record[0] = tag.Name
+		record[1] = strings.TrimSpace(tag.Description.Cdata)
+		err := out.Write(record)
+		if err != nil {
+			return fmt.Errorf("Tag '%s' couldn't be written because %w", tag.Name, err)
+		}
+	}
+	out.Flush()
+
+	return nil
 }
 
 type RedundancyInfo struct {

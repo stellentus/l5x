@@ -1059,3 +1059,11 @@ func ExampleController_WriteTagsStruct() {
 	// 	Dancer `plctag:"Program:dancer"`
 	// }
 }
+
+func ExampleController_WriteTagDescriptions() {
+	tl, _ := exampleController.TypeList()
+	exampleController.WriteTagDescriptions(tl, os.Stdout)
+	// Output:
+	// INFO_ABOUT,Info data
+	// bIGGD,Big Data Lots
+}
