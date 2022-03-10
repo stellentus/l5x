@@ -1066,4 +1066,7 @@ func ExampleController_WriteTagDescriptions() {
 	// Output:
 	// INFO_ABOUT,Info data
 	// bIGGD,Big Data Lots
+	// DOW,Day of the Week
+	// EX_AOI,Add-on instruction
+	// multiArray,Demo of multi-dimensional array
 }
